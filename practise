@@ -1,0 +1,3296 @@
+1. Techwing solution
+2. ConTv
+3. Cricket
+4. Food hub
+5. Water wonder
+6. Lisa appliance
+7. Crazy Frank Cakes
+8. Retire Hub
+9. Hemels traveller and Mountaineer
+10. Treasure Mine, Jewellery store
+11.Detergent
+12.Alia cabs
+13.Plant heaven
+14.Win Cinemas
+15.Income tax
+16.Get Holiday
+17.Madoff’s minions
+18.Carslon bike insurance
+19.Revy bikes
+20.Vision Mobile
+21.Secret Trade
+22.Elegant Jewllers
+23.Destuche Bank
+24.Caffeine Cove
+ 25)Fairy Tale Dress
+ 26)Concert (new)
+ 27)Flying BBQ
+ 28)Future Wings
+ 29)Fragrant Fantasy-0 (new)
+ 30)Luxe optical
+ 31)Knowledge Junction
+ 32)Acro
+ 33)Coffee Cottage
+34)Vegetable
+1)TECHWINGS Solution
+using System;
+using System.Collections.Generic;
+class Program
+{
+ public static Dictionary<string, string> vaccinationDetails = new Dictionary<string, 
+string>();
+ public void AddVaccinationDetails(Dictionary<string, string> dic)
+ {
+ //Dictionary<string, string> d = new Dictionary<string, string>();
+ foreach(var kvp in dic)
+ {
+ vaccinationDetails.Add(kvp.Key,kvp.Value);
+ }
+ }
+ public List<string> GetEmployeeId(string status)
+ {
+ List<string> l=new List<string>();
+ foreach(var i in vaccinationDetails)
+ {
+ if(i.Value==status){
+ l.Add(i.Key);
+ }
+ }
+ return l;
+ }
+public string UpdateVaccinationStatus(string id, string status)
+ {
+ if(vaccinationDetails.ContainsKey(id))
+ {
+ vaccinationDetails[id]=status;
+ return $"{id}_{status}";
+ }
+ return "Not found";
+ }
+ static void Main()
+ {
+ Program program = new Program();
+ while (true)
+ {
+ Console.WriteLine("1. Add the vaccination details");
+ Console.WriteLine("2. Get employee id by status");
+ Console.WriteLine("3. Update vaccination details");
+ Console.WriteLine("4. Exit");
+ Console.WriteLine("Enter your choice");
+ int choice;
+ if (!int.TryParse(Console.ReadLine(), out choice))
+ {
+ Console.WriteLine("Invalid choice. Please enter a valid number.");
+ continue;
+ }
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the employee id");
+ string empId = Console.ReadLine();
+ Console.WriteLine("Enter the status");
+ string empStatus = Console.ReadLine();
+ program.AddVaccinationDetails(new Dictionary<string, string> { { 
+empId, empStatus } });
+ break;
+ case 2:
+ Console.WriteLine("Enter the status");
+ string status = Console.ReadLine();
+ List<string> employees = program.GetEmployeeId(status);
+ foreach (var emp in employees)
+ {
+ Console.WriteLine(emp);
+ }
+ break;
+ case 3:
+ Console.WriteLine("Enter the employee id");
+ string updateId = Console.ReadLine();
+ Console.WriteLine("Enter the status");
+ string updateStatus = Console.ReadLine();
+ string updatedDetails = program.UpdateVaccinationStatus(updateId, 
+updateStatus);
+ Console.WriteLine(updatedDetails);
+ break;
+ case 4:
+ return;
+ default:
+ Console.WriteLine("Invalid choice. Please enter a valid number.");
+ break;
+ }
+ }
+ }
+}
+2) CONTV
+using System;
+class Installation
+{
+ public string ExpectedDate { get; set; }
+ public string InstalledDate { get; set; }
+ public double Rating { get; set; }
+ public string Feedback { get; set; }
+}
+class InstallationDetails : Installation
+{
+ public void GetCustomerFeedback()
+ {
+ DateTime expectedDate = DateTime.ParseExact(ExpectedDate, "MM/dd/yyyy", 
+null);
+ DateTime installedDate = DateTime.ParseExact(InstalledDate, "MM/dd/yyyy", 
+null);
+ if (installedDate < expectedDate)
+ Feedback = "VeryGood";
+ else if (installedDate == expectedDate)
+ Feedback = "Good";
+ else if (installedDate <= expectedDate.AddDays(3))
+ Feedback = "Average";
+ else
+ Feedback = "Poor";
+ }
+ public double CalculateRating()
+ {
+ if (Rating < 1 || Rating > 10)
+ return 0;
+ switch (Feedback)
+ {
+ case "VeryGood":
+ return Rating + (Rating * 0.5);
+ case "Good":
+ return Rating + (Rating * 0.2);
+ case "Average":
+ return Rating - (Rating * 0.2);
+ case "Poor":
+ return Rating - (Rating * 0.5);
+ default:
+ return 0;
+ }
+ }
+}
+class Program
+{
+ static void Main()
+ {
+ Console.WriteLine("Sample Input:");
+ Console.Write("Enter the expected date (MM/dd/yyyy): ");
+ string expectedDate = Console.ReadLine();
+ Console.Write("Enter the installed date (MM/dd/yyyy): ");
+ string installedDate = Console.ReadLine();
+ Console.Write("Enter the rating: ");
+ double rating = Convert.ToDouble(Console.ReadLine());
+ InstallationDetails installation = new InstallationDetails
+ {
+ ExpectedDate = expectedDate,
+ InstalledDate = installedDate,
+ Rating = rating
+ };
+ installation.GetCustomerFeedback();
+ double updatedRating = installation.CalculateRating();
+ if (updatedRating == 0)
+ Console.WriteLine("Invalid rating");
+ else
+ Console.WriteLine($"Now your rating is {updatedRating}");
+ }
+}
+3)Cricket
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class PlayerStatistics
+{
+ private List<int> playerList = new List<int>();
+ public void AddScoreDetails(int runScored)
+ {
+ playerList.Add(runScored);
+ }
+ public double GetAverageRunsSecured()
+ {
+ if(playerList.Count()==0)
+ { return 0;}
+ double avg= playerList.Average();
+ return Math.Round(avg,2);
+ }
+}
+class Program
+{
+ static void Main(string[] args)
+ {
+ PlayerStatistics playerStats = new PlayerStatistics();
+ while (true)
+ {
+ Console.WriteLine("1. Add Runs Scored");
+ Console.WriteLine("2. Average Score of the Player");
+ Console.WriteLine("3. Exit");
+ Console.Write("Enter your choice: ");
+ int choice = int.Parse(Console.ReadLine());
+ switch (choice)
+ {
+ case 1:
+ Console.Write("Enter the runs scored: ");
+ int runsScored = int.Parse(Console.ReadLine());
+ playerStats.AddScoreDetails(runsScored);
+ break;
+ case 2:
+ double averageRuns = playerStats.GetAverageRunsSecured();
+ Console.WriteLine($"Average runs secured: {averageRuns}");
+ break;
+ case 3:
+ Environment.Exit(0);
+ break;
+ default:
+ Console.WriteLine("Invalid choice. Please select 1, 2, or 3.");
+ break;
+ }
+ }
+ }
+}
+4)FoodHub
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace FoodHub
+{
+ public class HotelBill
+ {
+ public string BillNo { get; set; }
+ public double BillAmount { get; set; }
+ public string Status { get; set; }
+ }
+ public class Program
+ {
+ public static List<HotelBill> billList = new List<HotelBill>();
+ public static List<HotelBill> GetBillDetails(string billNo)
+ {
+ List<HotelBill> result = billList.Where(a=> a.BillNo == billNo).ToList();
+ if (result.Count == 0)
+ {
+ Console.WriteLine("Invalid bill number");
+ }
+ return result;
+ }
+ public static List<HotelBill> UpdateBillStatus(string billNo, string status)
+ {
+ List<HotelBill> result = billList.Where(bill => bill.BillNo == billNo).ToList();
+ if (result.Count > 0)
+ {
+ result[0].Status = status;
+ }
+ else
+ {
+ Console.WriteLine("Invalid bill number");
+ }
+ return result;
+ }
+ public static List<HotelBill> SortBillByStatus()
+ {
+ List<HotelBill> sortedList = billList.OrderByDescending(bill => 
+bill.Status).ToList();
+ return sortedList;
+ }
+ public static void Main(string[] args)
+ {
+ billList.Add(new HotelBill { BillNo = "H01", BillAmount = 450, Status = 
+"UnPaid" });
+ billList.Add(new HotelBill { BillNo = "H02", BillAmount = 50, Status = "Paid" });
+ billList.Add(new HotelBill { BillNo = "H03", BillAmount = 500, Status = "Paid" 
+});
+ billList.Add(new HotelBill { BillNo = "H04", BillAmount = 2000, Status = 
+"UnPaid" });
+ int choice;
+ do
+ {
+ Console.WriteLine("1. Get bill details");
+ Console.WriteLine("2. Update Bill Status");
+ Console.WriteLine("3. Sort Bill By Status");
+ Console.WriteLine("4. Exit");
+ Console.WriteLine("Enter your choice");
+ if (int.TryParse(Console.ReadLine(), out choice))
+ {
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter bill number");
+ string billNumber = Console.ReadLine();
+ List<HotelBill> billDetails = GetBillDetails(billNumber);
+ if (billDetails.Count > 0)
+ {
+ Console.WriteLine("BillNo\tBillAmount\tStatus");
+ foreach (var bill in billDetails)
+ {
+ Console.WriteLine($"{bill.BillNo}\t{bill.BillAmount}\t{bill.Status}
+");
+ }
+ }
+ break;
+ case 2:
+ Console.WriteLine("Enter bill number");
+ string updateBillNumber = Console.ReadLine();
+ Console.WriteLine("Enter new status");
+ string newStatus = Console.ReadLine();
+ List<HotelBill> updatedBill = UpdateBillStatus(updateBillNumber, 
+newStatus);
+ if (updatedBill.Count > 0)
+ {
+ Console.WriteLine("BillNo\tBillAmount\tStatus");
+ foreach (var bill in updatedBill)
+ {
+ Console.WriteLine($"{bill.BillNo}\t{bill.BillAmount}\t{bill.Status}
+");
+ }
+ }
+ break;
+ case 3:
+ List<HotelBill> sortedBillList = SortBillByStatus();
+ Console.WriteLine("BillNo\tBillAmount\tStatus");
+ foreach (var bill in sortedBillList)
+ {
+ Console.WriteLine($"{bill.BillNo}\t{bill.BillAmount}\t{bill.Status}");
+ }
+ break;
+ case 4:
+ Console.WriteLine("Exiting program.");
+ break;
+ default:
+ Console.WriteLine("Invalid choice. Please enter a number between 
+1 and 4.");
+ break;
+ }
+ }
+ else
+ {
+ Console.WriteLine("Invalid input. Please enter a valid number.");
+ }
+ } while (choice != 4);
+ }
+ }
+}
+5)Water Wonders
+using System;
+public class WaterBill
+{
+ public string UsageType { get; set; }
+ public double Volume { get; set; }
+ public double PricePerGallon { get; set; }
+}
+public class BillUtility : WaterBill
+{
+ public bool ValidateUsageType()
+ {
+ // Validating the usage type
+ if(UsageType=="Residential"||UsageType=="Commercial"||UsageType=="Indus
+trial")
+ return true;
+ else
+ return false;
+ }
+ public double WaterPriceCalculation()
+ {
+ // Calculating the water price with tax amount
+ double price =Volume * PricePerGallon;
+ switch(UsageType){
+ case "Residential":
+ price+=(price*0.1);
+ break;
+ case "Commercial":
+ price+=(price*0.2);
+ break;
+ case "Industrial":
+ price+=(price*0.3);
+ break;
+ default:
+ return 0;
+ }
+ return price;
+}
+public class Program
+{
+ public static void Main(string[] args)
+ {
+ BillUtility waterBill = new BillUtility();
+ // Get the values from the user
+ Console.WriteLine("Enter the usage type");
+ waterBill.UsageType = Console.ReadLine();
+ // Call ValidateUsageType method
+ if (waterBill.ValidateUsageType())
+ {
+ Console.WriteLine("Enter the volume of water");
+ waterBill.Volume = Convert.ToDouble(Console.ReadLine());
+ Console.WriteLine("Enter price per gallon");
+ waterBill.PricePerGallon = Convert.ToDouble(Console.ReadLine());
+ // Use values in WaterPriceCalculation method
+ double totalPrice = waterBill.WaterPriceCalculation();
+ Console.WriteLine("The total price is " + totalPrice);
+ }
+ else
+ {
+ Console.WriteLine("Invalid usage type.");
+ }
+ }
+}
+}
+6)LISA Home Appliance
+using System;
+public class Machine
+{
+ public string Type { get; set; }
+ public double CubicFootCapacity { get; set; }
+ public double NoOfRevolution { get; set; }
+ public double NoOfSeconds { get; set; }
+ public double Price { get; set; }
+}
+public class MachineDetails : Machine
+{
+ public double FindTheSpinSpeed()
+ {
+ // Calculate the spin speed of the washing machine
+ return (60*NoOfRevolution)/NoOfSeconds;
+ }
+ public double CalculatePrice()
+ {
+ // Calculate the price of the washing machine after the discount
+ switch(Type){
+ case "Front Load":
+ if(CubicFootCapacity>2&&CubicFootCapacity<5.5)
+ {
+ Price-=(Price*0.2);
+ }
+ if(CubicFootCapacity<2)
+ {
+ Price=Price;
+ }
+ if(CubicFootCapacity>5.5)
+ {
+ Price-=(Price*0.4);
+ }
+ break;
+ case "Top Load":
+ if(CubicFootCapacity>2&&CubicFootCapacity<5.5)
+ {
+ Price-=(Price*0.2);
+ }
+ if(CubicFootCapacity<2)
+ {
+ Price=Price;
+ }
+ if(CubicFootCapacity>5.5)
+ {
+ Price-=(Price*0.5);
+ }
+ break;
+ default:
+ return 0;
+ }
+ return Price;
+ }
+}
+public class Program
+{
+ public static void Main(string[] args)
+ {
+ MachineDetails machine = new MachineDetails();
+ // Get values from the user
+ Console.WriteLine("Enter the load type");
+ machine.Type = Console.ReadLine();
+ Console.WriteLine("Enter cubic foot capacity");
+ machine.CubicFootCapacity = Convert.ToDouble(Console.ReadLine());
+ Console.WriteLine("Enter number of revolution");
+ machine.NoOfRevolution = Convert.ToDouble(Console.ReadLine());
+ Console.WriteLine("Enter number of seconds");
+ machine.NoOfSeconds = Convert.ToDouble(Console.ReadLine());
+ Console.WriteLine("Enter the price");
+ machine.Price = Convert.ToDouble(Console.ReadLine());
+ // Call methods FindTheSpinSpeed and CalculatePrice
+ double spinSpeed = machine.FindTheSpinSpeed();
+ double priceAfterDiscount = machine.CalculatePrice();
+ // Display the result
+ Console.WriteLine("Spin speed is " + spinSpeed + " RPM");
+ Console.WriteLine("The price after discount " + priceAfterDiscount);
+ }
+}
+7)Crazy Frank Cakes
+using System;
+class Cake
+{
+ public string CakeType{get;set;}
+ public string Flavour{get;set;}
+ public int Quantity{get;set;}
+ public int PricePerKg{get;set;}
+ public double TotalPrice{get;set;}
+ 
+ public Cake()
+ {
+ 
+ }
+}
+class CakeUtility:Cake 
+{
+ public bool ValidateCakeType()
+ {
+ if(CakeType=="Butter"||CakeType=="Sponge"||CakeType=="Chiffon")
+ {
+ return true;
+ }
+ else
+ {
+ Console.WriteLine("Invalid data type");
+ return false;
+ }
+ }
+ public string[] CalculatePrice()
+ {
+ string[] str=new string[5];
+ double TotalPrice=Quantity*PricePerKg;
+ if(Flavour=="Vanila")
+ {
+ TotalPrice=TotalPrice-(TotalPrice)*0.05;
+ }
+ else if(Flavour=="Chocolate")
+ {
+ TotalPrice=TotalPrice-(TotalPrice)*0.1;
+ }
+ else
+ {
+ TotalPrice=TotalPrice-(TotalPrice)*0;
+ }
+ str[0]=CakeType;
+ str[1]=Flavour;
+ str[2]=Quantity.ToString();
+ str[3]=PricePerKg.ToString();
+ str[4]=TotalPrice.ToString();
+ return str;
+ 
+ }
+}
+public class Program
+{
+ static void Main()
+ {
+ CakeUtility c=new CakeUtility();
+ Console.WriteLine("Enter the cake type");
+ c.CakeType=Console.ReadLine();
+ if(c.ValidateCakeType())
+ {
+ Console.WriteLine("Enter the flavour");
+ c.Flavour=Console.ReadLine();
+ Console.WriteLine("Enter the Quantity");
+ c.Quantity=int.Parse(Console.ReadLine());
+ Console.WriteLine("Enter the PricePerKg");
+ c.PricePerKg=int.Parse(Console.ReadLine());
+ string[] arr=c.CalculatePrice();
+ Console.WriteLine("Cake type : "+ arr[0]);
+ Console.WriteLine("Cake flavour : "+arr[1]);
+ Console.WriteLine("Quantity : "+arr[2]);
+ 
+ 
+ }
+ 
+ }
+}
+8)Retire Hub
+using System;
+using System.Text.RegularExpressions;
+using System.Linq;
+using System.Collections.Generic;
+public class Club
+{
+public string MemberId{get;set;}
+public string MemberName{get;set;}
+public string MemberType{get;set;}
+}
+public class Service :Club
+{
+public bool ValidateMemberId()
+{
+string str=MemberId.Substring(MemberId.Length-4);
+if((MemberId.StartsWith("Premium") && MemberId.Length==11) || 
+(MemberId.StartsWith("Gold") && MemberId.Length==8)){
+ if(Char.IsDigit(str[0]) && Char.IsDigit(str[1]) && Char.IsDigit(str[2]) 
+&& Char.IsDigit(str[3]))
+ return true;
+}
+else
+ {return false;}
+return false;
+}
+public double CalculateMembershipFees(){
+double fees=0;
+if(MemberType=="Gold"){
+ fees=50000;
+ return fees;
+}
+else if(MemberType=="Premium"){
+ fees=75000;
+ return fees;
+}
+return fees;
+}
+ public class Program
+ {
+ public static void Main()
+ {
+ Service service = new Service();
+ Console.WriteLine("Enter member id");
+ service.MemberId = Console.ReadLine();
+ if (!service.ValidateMemberId())
+ {
+ Console.WriteLine("Invalid member id");
+ }
+ else{
+ Console.WriteLine("Enter member name");
+ service.MemberName = Console.ReadLine();
+ Console.WriteLine("Enter member type");
+ service.MemberType = Console.ReadLine();
+ if (service.ValidateMemberId())
+ {
+ Console.WriteLine("Membership Fees is 
+"+service.CalculateMembershipFees());
+ }
+ }
+ }
+}
+}
+OR
+using System;
+using System.Text.RegularExpressions;
+public class Club
+{
+ public string MemberId { get; set; }
+ public string MemberName { get; set; }
+ public string MemberType { get; set; }
+}
+public class Service : Club
+{
+ public bool ValidateMemberId()
+ {
+ // Define regex pattern to match Premium and Gold MemberIds
+ string pattern = @"^(Premium|Gold)\d{4}$";
+ 
+ // Check if the MemberId matches the pattern
+ return Regex.IsMatch(MemberId, pattern);
+ }
+ public double CalculateMembershipFees()
+ {
+ double fees = 0;
+ if (MemberType == "Gold")
+ {
+ fees = 50000;
+ }
+ else if (MemberType == "Premium")
+ {
+ fees = 75000;
+ }
+ return fees;
+ }
+}
+public class Program
+{
+ public static void Main()
+ {
+ Service service = new Service();
+ Console.WriteLine("Enter member id");
+ service.MemberId = Console.ReadLine();
+ if (!service.ValidateMemberId())
+ {
+ Console.WriteLine("Invalid member id");
+ }
+ else
+ {
+ Console.WriteLine("Enter member name");
+ service.MemberName = Console.ReadLine();
+ Console.WriteLine("Enter member type");
+ service.MemberType = Console.ReadLine();
+ Console.WriteLine("Membership Fees is " + 
+service.CalculateMembershipFees());
+ }
+ }
+}
+9)Hemels traveller and Mountaineer
+using System.Diagnostics;
+using System.Diagnostics.Metrics;
+using System.Xml.Linq;
+namespace Mountain
+{
+ internal class Program
+ {
+ static Dictionary<string, int> MountainDetails = new 
+Dictionary<string, int>();
+ static void Main(string[] args)
+ {
+ while (true)
+ {
+ Console.WriteLine("1.Add Mountain Details");
+ Console.WriteLine("2.View Mountain Height");
+ Console.WriteLine("3.View Mountains With Highest Height");
+ Console.WriteLine("4.Exit");
+ int a = int.Parse(Console.ReadLine());
+ int ex = 0;
+ switch(a)
+ {
+ case 1:
+ Console.WriteLine("Enter the number of choice");
+ int num=int.Parse(Console.ReadLine());
+ string[] strarr=new string[num];
+ for (int i = 0; i < num; i++)
+ {
+ strarr[i] = Console.ReadLine();
+ }
+ AddMountainDetails(strarr);
+ break;
+ case 2:
+ Console.WriteLine("Enter the mountain name needs to be 
+searched");
+ string name=Console.ReadLine();
+ int hig=FindMountainHeight(name);
+ if (hig > 0)
+ {
+ Console.WriteLine(hig);
+ }
+ else
+ {
+ Console.WriteLine("No mountains are available");
+ }
+ break;
+ case 3:
+ List<string> list= FindTheHighestMountains();
+ foreach (string str in list)
+ {
+ Console.WriteLine(str);
+ }
+ break;
+ case 4:
+ Console.WriteLine("thank you");
+ ex++;
+ break;
+ }
+ if (ex != 0)
+ {
+ break;
+ }
+ }
+ }
+ public static void AddMountainDetails(string[] mountain) {
+ foreach (var item in mountain)
+ {
+ string[] arr = item.Split(":");
+ MountainDetails.Add(arr[0], int.Parse(arr[1]));
+ }
+ }
+ public static int FindMountainHeight(String mountainName)
+ {
+ if (MountainDetails.ContainsKey(mountainName))
+ {
+ return MountainDetails[mountainName];
+ }
+ else
+ {
+ return -1;
+ }
+ }
+ public static List<String> FindTheHighestMountains()
+ {
+ var list = new List<String>();
+ int l= 0;
+ foreach(var item in MountainDetails)
+ {
+ if (item.Value > l)
+ {
+ l= item.Value;
+ }
+ }
+ foreach (var item in MountainDetails)
+ {
+ if (item.Value == l)
+ {
+ list.Add(item.Key);
+ }
+ }
+ return list;
+ }
+ }
+}
+10)Treasure Mine, jewellery store
+using System;
+using System.Collections.Generic;
+public class Program
+{
+ // ProductDetails dictionary to store product details (item name, quantity)
+ public static Dictionary<string, int> ProductDetails = new Dictionary<string, int>();
+ public void AddProductDetails(string itemName, int quantity)
+ {
+ // Add product details into the ProductDetails dictionary
+ if(ProductDetails.ContainsKey(itemName))
+ {
+ ProductDetails[itemName]+=quantity;
+ }
+ else{ProductDetails.Add(itemName,quantity);}
+ }
+ public List<string> CheckReorderLevel(int reorderLevel)
+ {
+ // Find items that have less stock than the reorder level
+ List<string>a=new List<string>();
+ foreach(var i in ProductDetails)
+ {
+ if(i.Value < reorderLevel)
+ {
+ a.Add(i.Key);
+ }
+ }
+ return a;
+ }
+ public static void Main(string[] args)
+ {
+ Program storeProgram = new Program();
+ Console.WriteLine("Enter the number of products");
+ int numProducts = Convert.ToInt32(Console.ReadLine());
+ // Get product details from the user
+ for (int i = 0; i < numProducts; i++)
+ {
+ Console.WriteLine("Enter the item name");
+ string itemName = Console.ReadLine();
+ Console.WriteLine("Enter the stock quantity");
+ int quantity = Convert.ToInt32(Console.ReadLine());
+ // Call AddProductDetails method
+ storeProgram.AddProductDetails(itemName, quantity);
+ }
+ Console.WriteLine("Enter re-order level");
+ int reorderLevel = Convert.ToInt32(Console.ReadLine());
+ // Call CheckReorderLevel method and display the result
+ List<string> itemsToReorder = 
+storeProgram.CheckReorderLevel(reorderLevel);
+ if (itemsToReorder.Count > 0)
+ {
+ Console.WriteLine("List of Products - reorder level below " + reorderLevel);
+ foreach (string item in itemsToReorder)
+ {
+ Console.WriteLine(item);
+ }
+ }
+ else
+ {
+ Console.WriteLine("No need for reorder");
+ }
+ }
+}
+11)Detergent
+using System;
+public class Detergent
+{
+ public string BillId { get; set; }
+ public string Name { get; set; }
+ public int GramsInPack { get; set; }
+ public double CostPerPack { get; set; }
+}
+public class Service : Detergent
+{
+ public bool ValidateBillId()
+ {
+ // Validate the bill id
+ if (BillId.Length == 5 && Char.IsDigit(BillId[0]) && Char.IsDigit(BillId[1]) && 
+BillId[2] == ':' &&
+ Char.IsUpper(BillId[3]) && Char.IsUpper(BillId[4]))
+ {
+ return true;
+ }
+ else
+ {
+ return false;
+ }
+ }
+ public double CalculateTotalCost(float quantity)
+ {
+ // Calculate the total cost
+ double totalCost = (CostPerPack * (quantity * 1000) / GramsInPack);
+ return totalCost;
+ }
+}
+public class Program
+{
+ public static void Main(string[] args)
+ {
+ Service detergent = new Service();
+ // Get BillId value from the user
+ Console.WriteLine("Enter bill id");
+ detergent.BillId = Console.ReadLine();
+ // Call ValidateBillId method
+ if (detergent.ValidateBillId())
+ {
+ Console.WriteLine("Enter detergent name");
+ detergent.Name = Console.ReadLine();
+ Console.WriteLine("Enter pack capacity in grams");
+ detergent.GramsInPack = Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("Enter cost per pack");
+ detergent.CostPerPack = Convert.ToDouble(Console.ReadLine());
+ Console.WriteLine("Enter Quantity to purchase in kgs");
+ float quantity = Convert.ToSingle(Console.ReadLine());
+ // Use values in method CalculateTotalCost
+ double detergentCost = detergent.CalculateTotalCost(quantity);
+ Console.WriteLine("Detergent cost is " + detergentCost);
+ }
+ else
+ {
+ Console.WriteLine("Invalid bill id.");
+ }
+ }
+}
+12)Alia Cabs
+using System;
+public class Cab
+{
+ public string BookingID { get; set; }
+ public string CabType { get; set; }
+ public double Distance { get; set; }
+ public double Fare { get; set; }
+}
+public class CabDetails : Cab
+{
+ public bool ValidateBookingID()
+ {
+ //
+if(BookingID.Length==6 && BookingID[0]=='A' && BookingID[1]=='C' && 
+BookingID[2]=='@' && Char.IsDigit(BookingID[3])&& Char.IsDigit(BookingID[4]))
+ {return true;}
+ else
+ {return false;}
+ }
+ public Cab CalculateFareAmount()
+ {
+ //
+ switch(CabType){
+ case "Hatchback":
+ Fare=Distance*10;
+ break;
+ case "Sedan":
+ Fare=Distance*20;
+ break;
+ case "SUV":
+ Fare=Distance*30;
+ break;
+ default:
+ Console.WriteLine("Invalid");
+ break;
+ }
+ return new Cab{
+ BookingID = BookingID,
+ CabType = CabType,
+ Distance = Distance,
+ Fare = Fare
+ };
+ }
+}
+class Program
+{
+ static void Main()
+ {
+ CabDetails cabDetails = new CabDetails();
+ Console.WriteLine("Enter the booking id");
+ cabDetails.BookingID = Console.ReadLine();
+ Console.WriteLine("Enter the cab type");
+ cabDetails.CabType = Console.ReadLine();
+ Console.WriteLine("Enter the distance in km");
+ if (double.TryParse(Console.ReadLine(), out double distance))
+ {
+ cabDetails.Distance = distance;
+ if (cabDetails.ValidateBookingID())
+ {
+ Cab resultCab = cabDetails.CalculateFareAmount();
+ if (resultCab != null)
+ {
+ Console.WriteLine("Booking Details:");
+ Console.WriteLine($"Booking ID: {resultCab.BookingID}");
+ Console.WriteLine($"Cab Type: {resultCab.CabType}");
+ Console.WriteLine($"Distance: {resultCab.Distance} km");
+ Console.WriteLine($"Fare: {resultCab.Fare}");
+ }
+ }
+ else
+ {
+ Console.WriteLine("Invalid booking id");
+ }
+ }
+ else
+ {
+ Console.WriteLine("Invalid distance input");
+ }
+ }
+}
+13)Plant Heaven
+using System;
+public class Plant
+{
+ // Properties of the Plant class
+ public string PlantName { get; set; }
+ public int NoOfSapling { get; set; }
+ public string Category { get; set; }
+ public int PricePerSapling { get; set; }
+ // Default constructor for Plant class
+ public Plant()
+ {
+ // Empty constructor body
+ }
+}
+public class PlantUtility : Plant
+{
+ // Method to extract details from a string and populate the properties
+ public Plant ExtractDetails(string plantDetails)
+ {
+ // Splitting the input string using ":" as a delimiter
+ string[] k = plantDetails.Split(":");
+ // Assigning values to properties based on the split parts
+ this.PlantName = k[0];
+ this.NoOfSapling = int.Parse(k[1]);
+ this.Category = k[2];
+ this.PricePerSapling = int.Parse(k[3]);
+ // Returning the current object (this) after populating the properties
+ return this;
+ }
+ // Method to calculate the total cost based on the number of saplings and price per 
+sapling
+ public double CalculateCost()
+ {
+ double total = NoOfSapling * PricePerSapling;
+ // Applying discounts based on the total cost
+ if (total > 500 && total <= 1000)
+ {
+ total = total - (total) * 0.1;
+ }
+ else if (total > 1000)
+ {
+ total = total - (total) * 0.2;
+ }
+ // Returning the calculated total cost
+ return total;
+ }
+}
+// Main Program class
+public class Program 
+{
+ // Main method
+ static void Main()
+ {
+ // Creating an instance of PlantUtility
+ PlantUtility pu = new PlantUtility();
+ // Prompting user to enter plant details
+ Console.WriteLine("Enter the plant details");
+ string input = Console.ReadLine();
+ // Extracting details and populating properties using ExtractDetails method
+ pu.ExtractDetails(input);
+ // Displaying the extracted plant details
+ Console.WriteLine($"Plant Name is {pu.PlantName}\n No Of Saplings 
+{pu.NoOfSapling}\n Category {pu.Category}\n PricePerSapling is 
+{pu.PricePerSapling}");
+ // Displaying the calculated total cost using CalculateCost method
+ Console.WriteLine("Total Cost is: " + pu.CalculateCost());
+ }
+}
+14)Win Cinema
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+public class Movie
+{
+public string MovieName { get; set; }
+public string ScreenedDate { get; set; }
+public string RemovedDate { get; set; }
+public double Price { get; set; }
+}
+public class Program
+{
+public static Dictionary<int, Movie> screeningDetails = new 
+Dictionary<int, Movie>();
+public Dictionary<string, double> 
+MovieScreenedMoreNumberOfDays()
+{
+ Dictionary<string, double> result = new Dictionary<string, 
+double>();
+ double maxScreenDays = 0;
+ foreach (var movieEntry in screeningDetails)
+ {
+ DateTime screenedDate = 
+DateTime.Parse(movieEntry.Value.ScreenedDate);
+ DateTime removedDate = 
+DateTime.Parse(movieEntry.Value.RemovedDate);
+ double screenedDays = (removedDate -
+screenedDate).TotalDays;
+ if (screenedDays > maxScreenDays)
+ {
+ maxScreenDays = screenedDays;
+ result.Clear();
+ result.Add(movieEntry.Value.MovieName, 
+movieEntry.Value.Price);
+ }
+ else if (screenedDays == maxScreenDays)
+ {
+ result.Add(movieEntry.Value.MovieName, 
+movieEntry.Value.Price);
+ }
+ }
+ return result;
+}
+public Dictionary<string, double> MovieWithScreenedDays()
+{
+ Dictionary<string, double> result = new Dictionary<string, 
+double>();
+ foreach (var movieEntry in screeningDetails)
+ {
+ DateTime screenedDate = 
+DateTime.Parse(movieEntry.Value.ScreenedDate);
+ DateTime removedDate = 
+DateTime.Parse(movieEntry.Value.RemovedDate);
+ double screenedDays = (removedDate -
+screenedDate).TotalDays;
+ result.Add(movieEntry.Value.MovieName, screenedDays);
+ }
+ return result;
+}
+static void Main()
+{
+ Program pr = new Program();
+ screeningDetails.Add(1, new Movie { MovieName = 
+"Eternals", ScreenedDate = "04/25/2020", RemovedDate = 
+"05/30/2020", Price = 350 });
+ screeningDetails.Add(2, new Movie { MovieName = "Iron 
+Man", ScreenedDate = "07/15/2008", RemovedDate = 
+"08/15/2008", Price = 1350 });
+ screeningDetails.Add(3, new Movie { MovieName = "Avatar", 
+ScreenedDate = "10/15/2003", RemovedDate = "02/05/2004", 
+Price = 3500 });
+ screeningDetails.Add(4, new Movie { MovieName = "Light 
+Year", ScreenedDate = "05/17/2020", RemovedDate = 
+"07/03/2020", Price = 6350 });
+ while (true)
+ {
+ Console.WriteLine("1. Movie Screening More number of 
+days");
+ Console.WriteLine("2. Movie with their Screening Days");
+ Console.WriteLine("3. Exit");
+ Console.WriteLine("Enter your choice");
+ int choice = int.Parse(Console.ReadLine());
+ switch (choice)
+ {
+ case 1:
+ Dictionary<string, double> mydict1 = 
+pr.MovieScreenedMoreNumberOfDays();
+ foreach (var item1 in mydict1)
+ {
+ Console.WriteLine($"{item1.Key} 
+{item1.Value}");
+ }
+ break;
+ case 2:
+ Dictionary<string, double> mydict2 = 
+pr.MovieWithScreenedDays();
+ foreach (var item2 in mydict2)
+ {
+ Console.WriteLine($"{item2.Key} 
+{item2.Value}");
+ }
+ break;
+ case 3:
+ Console.WriteLine("Thank you");
+ return;
+ }
+ }
+}
+}
+15)Income tax
+namespace Practice
+{
+ using System;
+ using System.Text.RegularExpressions;
+ public class Employee
+ {
+ public string EmployeeId { get; set; }
+ public double Salary { get; set; }
+ }
+ public class EmployeeUtility : Employee
+ {
+ public bool ValidateEmployeeId()
+ {
+ if (EmployeeId.Length == 4)
+ {
+ string pattern = @"^[A-Z]\d{3}$";
+ if (Regex.IsMatch(EmployeeId, pattern))
+ {
+ return true;
+ }
+ else
+ {
+ return false;
+ }
+ }
+ else
+ {
+ return false;
+ }
+ }
+ public double calculateTaxAmount()
+ {
+ double tax = 0.0;
+ if (Salary <= 20000)
+ {
+ tax = 0;
+ }
+ else if (Salary > 20000 && Salary <= 50000)
+ {
+ tax = ((Salary - 20000) * 0.10);
+ }
+ else if (Salary > 50000 && Salary < 100000)
+ {
+ tax = ((30000) * 0.10) + ((Salary - 50000) * 0.20);
+ }
+ else
+ {
+ tax = ((30000) * 0.10) + ((50000) * 0.20) + ((Salary -
+100000) * 0.30);
+ }
+ return tax;
+ }
+ }
+ public class Program
+ {
+ public static void Main(string[] args)
+ {
+ EmployeeUtility eu = new EmployeeUtility();
+ Console.WriteLine("Enter the Employee Id");
+ eu.EmployeeId = Console.ReadLine();
+ if (eu.ValidateEmployeeId())
+ {
+ Console.WriteLine("Enter the Salary");
+ eu.Salary = Convert.ToDouble(Console.ReadLine());
+ Console.WriteLine("Total Tax amount is :" + 
+eu.calculateTaxAmount());
+ }
+ else
+ {
+ Console.WriteLine("Invalid Employee Id");
+ }
+ }
+ }
+}
+16)Get Holiday
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Program
+{
+ public static Dictionary<string, float> hotelDetails = new 
+Dictionary<string, float>();
+ 
+ public Dictionary<string, float> SearchHotel(string hotelName)
+ {
+ Dictionary<string, float> search = new Dictionary<string, float>();
+ 
+ if(hotelDetails.ContainsKey(hotelName))
+ {
+ search.Add(hotelName,hotelDetails[hotelName]);
+ }
+ return search;
+ }
+ 
+ public Dictionary<string, float> UpdateHotelRating(string hotelName, 
+float rating)
+ {
+ Dictionary<string, float> update = new Dictionary<string, float>();
+ 
+ if(hotelDetails.ContainsKey(hotelName))
+ {
+ update[hotelName] = rating;
+ }
+ return update;
+ }
+ 
+ public Dictionary<string, float> SortByHotelName()
+ {
+ Dictionary<string, float> sort = new Dictionary<string, float>();
+ 
+ var sorted = hotelDetails.OrderBy(x => x.Key);
+ 
+ 
+ // Convert Linq to Dictionary
+ sort = sorted.ToDictionary(pair => pair.Key, pair => pair.Value);
+ return sort;
+ }
+ 
+ static void Main(string [] args)
+ {
+ hotelDetails.Add("Mandarin Oriental", 5f);
+ hotelDetails.Add("The Greenwich Hotel", 5f);
+ hotelDetails.Add("Jungle Resort", 4.5f);
+ hotelDetails.Add("The Hay Adams", 3f);
+ hotelDetails.Add("Montage Kapalua Bay", 4f);
+ 
+ 
+ Program p = new Program();
+ int choice = 0;
+ do
+ {
+ Console.WriteLine("1. Search by hotel name");
+ Console.WriteLine("2. Update hotel rating");
+ Console.WriteLine("3. Sort hotels by name");
+ Console.WriteLine("4. Exit");
+ 
+ Console.WriteLine("Enter your choice");
+ choice = int.Parse(Console.ReadLine());
+ 
+ switch(choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the hotel name");
+ string name1 = Console.ReadLine();
+ 
+ var dict1 = p.SearchHotel(name1);
+ 
+ if(dict1.Count > 0)
+ {
+ foreach(var item in dict1)
+ {
+ Console.WriteLine(item.Key + " " + item.Value);
+ }
+ }
+ else{
+ Console.WriteLine("Hotel Not Found");
+ }
+ 
+ break;
+ 
+ case 2:
+ Console.WriteLine("Enter the hotel name");
+ string name = Console.ReadLine();
+ 
+ Console.WriteLine("Enter hotel rating");
+ float rating = float.Parse(Console.ReadLine());
+ 
+ var dict = p.UpdateHotelRating(name, rating);
+ if(dict.Count > 0)
+ {
+ foreach(var item in dict)
+ {
+ Console.WriteLine(item.Key + " " + item.Value);
+ }
+ }
+ else
+ {
+ Console.WriteLine("Hotel Not Found");
+ }
+ 
+ 
+ break;
+ 
+ case 3:
+ foreach(var item in p.SortByHotelName())
+ {
+ Console.WriteLine(item.Key + " " + item.Value);
+ }
+ break;
+ case 4:
+ Console.WriteLine("Thank You");
+ break;
+ 
+ default:
+ Console.WriteLine("Invalid Choice");
+ break;
+ }
+ 
+ }while(choice != 4);
+ }
+}
+17) Madoff’s Minions
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+public class Program
+{
+ public static Dictionary<string, float> empDictionary = new 
+Dictionary<string, float>();
+ public static void Main(string[] args)
+ {
+ empDictionary.Add("EMP101", 2.5f);
+ empDictionary.Add("EMP102", 4.3f);
+ empDictionary.Add("EMP103", 5.0f);
+ empDictionary.Add("EMP104", 3.4f);
+ empDictionary.Add("EMP105", 6.0f);
+ Program pr = new Program();
+ while (true)
+ {
+ Console.WriteLine("Enter your choice");
+ Console.WriteLine("1. Find Employee Rating\n2. Find Employee 
+With Highest Rating\n3. Sort Employees By Rating\n4. Exit");
+ int choice = int.Parse(Console.ReadLine());
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the employee id");
+ string k = Console.ReadLine();
+ float res = pr.FindEmployeeRating(k);
+ if (res == -1)
+ {
+ Console.WriteLine("Invalid employee id");
+ }
+ else
+ {
+ Console.WriteLine("Rating is : " + res);
+ }
+ break;
+ case 2:
+ Console.WriteLine("Enter the Rating");
+ float rating = float.Parse(Console.ReadLine());
+ List<string> list = 
+pr.FindEmployeeWithHighestRating(rating);
+ if (list.Count > 0)
+ {
+ foreach (string item in list)
+ {
+ Console.WriteLine(item);
+ }
+ }
+ else
+ {
+ Console.WriteLine("No highest rating employees found");
+ }
+ break;
+ case 3:
+ Dictionary<string, float> mydict = pr.SortByRating();
+ Console.WriteLine("EmployeeId\tRating");
+ foreach (var item in mydict)
+ {
+ Console.WriteLine($"{item.Key}\t\t{item.Value}");
+ }
+ break;
+ case 4:
+ Console.WriteLine("Thank you");
+ return;
+ }
+ }
+ }
+ public float FindEmployeeRating(string empid)
+ {
+ float res1 = -1;
+ foreach (var item in empDictionary)
+ {
+ if (item.Key == empid)
+ {
+ res1 = item.Value;
+ }
+ }
+ return res1;
+ }
+ public List<string> FindEmployeeWithHighestRating(float rating)
+ {
+ List<string> k = new List<string>();
+ foreach (var item in empDictionary)
+ {
+ if (rating == item.Value)
+ {
+ k.Add(item.Key);
+ }
+ }
+ return k;
+ }
+ public Dictionary<string, float> SortByRating()
+ {
+{
+ return empDictionary.OrderByDescending(c => 
+c.Value).ToDictionary(a => a.Key, a => a.Value);
+ }
+}
+18)Carlon bike insurance
+using System;
+using System.Collections.Generic;
+public class Bike
+{
+ public string BikeNumber { get; set; }
+ public int EngineCapacity { get; set; }
+ public double Year { get; set; }
+ public double Cost { get; set; }
+ public double Insurance { get; set; }
+}
+public class BikeUtility : Bike
+{
+ public bool ValidateBikeNumber()
+ {
+ if ((BikeNumber.Length == 5) && 
+(char.IsUpper(this.BikeNumber[0])) && 
+(char.IsUpper(this.BikeNumber[1])) && 
+(char.IsDigit(this.BikeNumber[2])) && (char.IsDigit(this.BikeNumber[3])) 
+&& (char.IsDigit(this.BikeNumber[4])))
+ {
+ return true;
+ }
+ else
+ {
+ return false;
+ }
+ }
+ public Bike CalculateInsurance()
+ {
+ if (EngineCapacity <= 200)
+ {
+ if (Year <= 2000)
+ {
+ Insurance = Cost * 0.01;
+ }
+ else
+ {
+ Insurance = Cost * 0.02;
+ }
+ }
+ else
+ {
+ if (Year <= 2000)
+ {
+ Insurance = Cost * 0.03;
+ }
+ else
+ {
+ Insurance = Cost * 0.04;
+ }
+ }
+ return this;
+ }
+}
+public class Program
+{
+ static void Main(string[] args)
+ {
+ BikeUtility b = new BikeUtility();
+ Console.WriteLine("Enter the bike number");
+ b.BikeNumber = Console.ReadLine();
+ if (b.ValidateBikeNumber())
+ {
+ Console.WriteLine("Enter the Engine Capacity");
+ b.EngineCapacity = int.Parse(Console.ReadLine());
+ Console.WriteLine("Enter the Year");
+ b.Year = double.Parse(Console.ReadLine());
+ Console.WriteLine("Enter the cost of the bike");
+ b.Cost = double.Parse(Console.ReadLine());
+ b.CalculateInsurance();
+ Console.WriteLine("BikeNumber\tEngineCapacity\tYear\tCost\tIns
+urance");
+ Console.WriteLine($"{b.BikeNumber}\t\t {b.EngineCapacity}\t\t 
+{b.Year}\t {b.Cost}\t {b.Insurance}");
+ }
+ else
+ {
+ Console.WriteLine("Enter invalid");
+ }
+ }
+}
+19)Revy Bikes
+using System;
+using System.Collections.Generic;
+public class Program
+{
+ public static void Main()
+ {
+ Program pr = new Program();
+ while (true)
+ {
+ Console.WriteLine("1. Add Bike Details\n2. View Count By cubic 
+Capacity\n3. View Bikes By cubic Capacity\n4. Exit");
+ Console.WriteLine("Enter the choice");
+ int choice = int.Parse(Console.ReadLine());
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the number of entries");
+ int en = int.Parse(Console.ReadLine());
+ string[] ent = new string[en];
+ for (int i = 0; i < en; i++)
+ {
+ ent[i] = Console.ReadLine();
+ }
+ pr.AddBikeDetails(ent);
+ break;
+ case 2:
+ Console.WriteLine("Enter the cubic Capacity");
+ int cc = int.Parse(Console.ReadLine());
+ if (pr.ViewBookedCount(cc) != -1)
+ {
+ Console.WriteLine("Booked Count: " + 
+pr.ViewBookedCount(cc));
+ }
+ else
+ {
+ Console.WriteLine("No bikes are booked");
+ }
+ break;
+ case 3:
+ Console.WriteLine("Enter the cubic Capacity");
+ int cc1 = int.Parse(Console.ReadLine());
+ List<string> bikename = pr.ViewBikeNames(cc1);
+ if (bikename.Count > 0)
+ {
+ foreach (var item in bikename)
+ {
+ Console.WriteLine(item);
+ }
+ }
+ else
+ {
+ Console.WriteLine("no bikes are booked");
+ }
+ break;
+ case 4:
+ Console.WriteLine("Thank you");
+ return;
+ }
+ }
+ }
+ public static Dictionary<string, int> BikeDetails = new 
+Dictionary<string, int>();
+ public void AddBikeDetails(string[] bike)
+ {
+ foreach (var item in bike)
+ {
+ string[] details = item.Split("_");
+ BikeDetails.Add(details[0], Convert.ToInt32(details[1]));
+ }
+ }
+ public int ViewBookedCount(int cubicCapacity)
+ {
+ int count = 0;
+ foreach (var item in BikeDetails)
+ {
+ if (cubicCapacity == item.Value)
+ {
+ count++;
+ }
+ }
+ if (count > 0)
+ {
+ return count;
+ }
+ else
+ {
+ return -1;
+ }
+ }
+ public List<string> ViewBikeNames(int cubicCapacity)
+ {
+ List<string> bikename = new List<string>();
+ foreach (var item in BikeDetails)
+ {
+ if (cubicCapacity == item.Value)
+ {
+ bikename.Add(item.Key);
+ }
+ }
+ return bikename;
+ }
+}
+20)vision Mobile
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Program
+{
+ public static void Main()
+ {
+ Program pr = new Program();
+ while (true)
+ {
+ Console.WriteLine("1. Find mobile Details");
+ Console.WriteLine("2. Minimum and Maximum sold");
+ Console.WriteLine("3. Sort mobiles by count");
+ Console.WriteLine("4. Exit");
+ Console.WriteLine("Enter your choice");
+ int choice = int.Parse(Console.ReadLine());
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the sold count");
+ int sc = int.Parse(Console.ReadLine());
+ SortedDictionary<string, long> k = 
+pr.FindMobileDetails(sc);
+ foreach (var item in k)
+ {
+ Console.WriteLine(item.Key + " " + item.Value);
+ }
+ break;
+ case 2:
+ List<string> minandmax = pr.FindMinandMaxSoldMobiles();
+ Console.WriteLine("Minimum Sold Mobile is : " + 
+minandmax[0]);
+ Console.WriteLine("Maximum Sold Mobile is : " + 
+minandmax[1]);
+ break;
+ case 3:
+ Dictionary<string, long> sor = pr.SortByCount();
+ foreach (var item in sor)
+ {
+ Console.WriteLine(item.Key + " " + item.Value);
+ }
+ break;
+ case 4:
+ Console.WriteLine("Thank you");
+ return;
+ }
+ }
+ }
+ public static SortedDictionary<string, long> mobileDetails = new 
+SortedDictionary<string, long>()
+{
+{"Nokia",55},
+{"Samsung",250},
+{"Sony",510},
+{"Oneplus",790},
+{"Redmi",800}
+};
+ public SortedDictionary<string, long> FindMobileDetails(long 
+soldCount)
+ {
+ SortedDictionary<string, long> sd = new SortedDictionary<string, 
+long>();
+ foreach (var item in mobileDetails)
+ {
+ if (item.Value == soldCount)
+ {
+ sd.Add(item.Key, item.Value);
+ }
+ }
+ return sd;
+ }
+ public List<string> FindMinandMaxSoldMobiles()
+ {
+ List<string> name = new List<string>();
+ long res = long.MaxValue;
+ long res1 = long.MinValue;
+ foreach (var item in mobileDetails)
+ {
+ res = Math.Min(item.Value, res);
+ res1 = Math.Max(item.Value, res1);
+ }
+ foreach (var item in mobileDetails)
+ {
+ if (res == item.Value)
+ {
+ name.Add(item.Key);
+ }
+ }
+ foreach (var item in mobileDetails)
+ {
+ if (res1 == item.Value)
+ {
+ name.Add(item.Key);
+ }
+ }
+ return name;
+ }
+ public Dictionary<string, long> SortByCount()
+ {
+ return mobileDetails.OrderBy(c => c.Value).ToDictionary(a => 
+a.Key, a => a.Value);
+ }
+}
+21)Secret trade
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Course
+{
+ public string Code { get; set; }
+ public string Name { get; set; }
+ public int Duration { get; set; }
+ public double Fee { get; set; }
+}
+public class Program
+{
+ public static void Main()
+ {
+ Courses.Add(new Course { Code = "C01", Name = "C", Duration = 
+25, Fee = 12000 });
+ Courses.Add(new Course { Code = "c02", Name = "C++", Duration 
+= 30, Fee = 15000 });
+ Courses.Add(new Course { Code = "c03", Name = "Java", Duration 
+= 60, Fee = 45000 });
+ Courses.Add(new Course { Code = "c04", Name = "C Sharp", 
+Duration = 50, Fee = 30000 });
+ Courses.Add(new Course { Code = "c05", Name = "Python", 
+Duration = 40, Fee = 18000 });
+ Program pr = new Program();
+ while (true)
+ {
+ Console.WriteLine("1. Find the course duration");
+ Console.WriteLine("2. Update Course fee");
+ Console.WriteLine("3. Sort course by fee");
+ Console.WriteLine("4. Exit");
+ Console.WriteLine("Enter your choice");
+ int choice = int.Parse(Console.ReadLine());
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the course name");
+ string k = Console.ReadLine();
+ Dictionary<string, int> arr = pr.FindTheCourseDuration(k);
+ foreach (var item in arr)
+ {
+ Console.WriteLine(item.Key + " " + item.Value);
+ }
+ break;
+ case 2:
+ Console.WriteLine("Enter the code");
+ string cd = Console.ReadLine();
+ Console.WriteLine("Enter the amount");
+ double am = Convert.ToDouble(Console.ReadLine());
+ Course cr = pr.UpdateCourseFee(cd, am);
+ if (cr == null)
+ {
+ Console.WriteLine("not found");
+ }
+ else
+ {
+ Console.WriteLine("Code: " + cr.Code);
+ Console.WriteLine("Name: " + cr.Name);
+ Console.WriteLine("Duration: " + cr.Duration);
+ }
+ break;
+ case 3:
+ List<string> list = pr.SortCourseByFee();
+ foreach (var item in list)
+ {
+ Console.WriteLine(item);
+ }
+ break;
+ case 4:
+ Console.WriteLine("Thank you");
+ return;
+ default:
+ Console.WriteLine("Invalid ");
+ break;
+ }
+ }
+ }
+ public static List<Course> Courses = new List<Course>();
+ public Dictionary<string, int> FindTheCourseDuration(string 
+courseName)
+ {
+ Dictionary<string, int> mydict = new Dictionary<string, int>();
+ foreach (var item in Courses)
+ {
+ if (item.Name == courseName)
+ {
+ mydict.Add(item.Name, item.Duration);
+ }
+ }
+ return mydict;
+ }
+ public Course UpdateCourseFee(string code, double amount)
+ {
+ foreach (var item in Courses)
+ {
+ if (item.Code == code)
+ {
+ item.Fee = amount;
+ return item;
+ }
+ }
+ Course course = null;
+ return course;
+ }
+ public List<string> SortCourseByFee()
+ {
+ return Courses.OrderByDescending(c => c.Fee).Select(c => 
+c.Name).ToList();
+ }
+}
+22) Elegant jewllers
+using System;
+public class Bill
+{
+ public string MetalName { get; set; }
+ public double Weight { get; set; }
+ public double PurityOfMetal { get; set; }
+ public bool WantDecoration { get; set; }
+}
+public class Service : Bill
+{
+ public void ExtractDetails(string billDetails)
+ {
+ string[] details = billDetails.Split(":");
+ MetalName = details[0];
+ Weight = double.Parse(details[1]);
+ PurityOfMetal = double.Parse(details[2]);
+ WantDecoration = bool.Parse(details[3]);
+ }
+ public bool ValidateMetalName()
+ {
+ if (MetalName == "Gold" || MetalName == "Silver")
+ {
+ return true;
+ }
+ else
+ {
+ return false;
+ }
+ }
+ public double CalculateTotalPrice()
+ {
+ double total = 0;
+ if (MetalName == "Gold")
+ {
+ total = 5000 * (PurityOfMetal / 100) * Weight;
+ }
+ else if (MetalName == "Silver")
+ {
+ total = 100 * (PurityOfMetal / 100) * Weight;
+ }
+ if (WantDecoration)
+ {
+ total = total + ((total / 100) * 10);
+ }
+ return total;
+ }
+}
+public class program
+{
+ static void Main(string[] args)
+ {
+ Service obj = new Service();
+ Console.WriteLine("Enter the bill details");
+ string user = Console.ReadLine();
+ obj.ExtractDetails(user);
+ if (obj.ValidateMetalName())
+ {
+ Console.WriteLine("The bill amount is " + 
+obj.CalculateTotalPrice());
+ }
+ else
+ {
+ Console.WriteLine("Invalid Metal Name");
+ }
+ }
+}
+23)Dustuche Bank
+using System;
+public class Customer
+{
+ public string CustomerName { get; set; }
+ public long SSn { get; set; }
+ public string City { get; set; }
+ public double LoanAmount { get; set; }
+ public int NoOfYears { get; set; }
+ public Customer()
+ {
+ }
+}
+public class CustomerUtility : Customer
+{
+ public CustomerUtility(string name, long ssn, string city, double loan, 
+int years)
+ {
+ CustomerName = name;
+ SSn = ssn;
+ City = city;
+ LoanAmount = loan;
+ NoOfYears = years;
+ }
+ public string GenerateTokenNumber()
+ {
+ //return CustomerName.Substring(0,2).ToUpper()+" 
+"+City.Substring(0,2).ToUpper()+" "+SSn%100;
+ return String.Concat(CustomerName.Substring(0, 2).ToUpper(), 
+City.Substring(2, 1).ToUpper(), SSn % 100);
+ }
+ public double CalculateAnnualInterest(string loanType)
+ {
+ double au = 0;
+ if (loanType == "Home")
+ {
+ au = LoanAmount * 0.03 * NoOfYears;
+ }
+ else if (loanType == "Business")
+ {
+ au = LoanAmount * 0.05 * NoOfYears;
+ }
+ else if (loanType == "Gold")
+ {
+ au = LoanAmount * 0.02 * NoOfYears;
+ }
+ return au;
+ }
+}
+public class Program
+{
+ static void Main(string[] args)
+ {
+ Console.WriteLine("Enter the cutsomerName");
+ string name = Console.ReadLine();
+ Console.WriteLine("Enter SSn");
+ long ssn = long.Parse(Console.ReadLine());
+ Console.WriteLine("Enter city");
+ string city = Console.ReadLine();
+ Console.WriteLine("Enter the total loan amount");
+ double loan = double.Parse(Console.ReadLine());
+ Console.WriteLine("Enter the number of years");
+ int years = int.Parse(Console.ReadLine());
+ Console.WriteLine("Enter the loan type");
+ string type = Console.ReadLine();
+ CustomerUtility obj = new CustomerUtility(name, ssn, city, loan, 
+years);
+ Console.WriteLine(obj.GenerateTokenNumber());
+ Console.WriteLine(obj.CalculateAnnualInterest(type));
+ }
+}
+24) caffeine cove
+using System;
+using System.Collections.Generic;
+public class Coffee
+{
+ public string ItemName { get; set; }
+ public double Price { get; set; }
+}
+public class Program
+{
+ public static List<Coffee> CoffeeMenu { get; } = new List<Coffee>();
+ public static void AddCoffeeDetails(Coffee coffeeObj)
+ {
+ CoffeeMenu.Add(coffeeObj);
+ }
+ public static List<Coffee> UpdateCoffeePrice(string itemName, double price)
+ {
+ foreach (var coffee in CoffeeMenu)
+ {
+ if (coffee.ItemName.Equals(itemName, 
+StringComparison.OrdinalIgnoreCase))
+ {
+ coffee.Price = price;
+ return CoffeeMenu;
+ }
+ }
+ return new List<Coffee>();
+ }
+ public static List<Coffee> SortByPrice()
+ {
+ List<Coffee> sortedMenu = new List<Coffee>(CoffeeMenu);
+ sortedMenu.Sort((x, y) => y.Price.CompareTo(x.Price));
+ return sortedMenu;
+ }
+ public static void Main(string[] args)
+ {
+ int choice;
+ do
+ {
+ Console.WriteLine("1. Add coffee details");
+ Console.WriteLine("2. Update coffee price");
+ Console.WriteLine("3. Sort by price");
+ Console.WriteLine("4. Exit");
+ Console.WriteLine("Enter your choice:");
+ if (!int.TryParse(Console.ReadLine(), out choice))
+ {
+ Console.WriteLine("Invalid input. Please enter a number.");
+ continue;
+ }
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the item name:");
+ string itemName = Console.ReadLine();
+ Console.WriteLine("Enter the price:");
+ double price;
+ if (!double.TryParse(Console.ReadLine(), out price))
+ {
+ Console.WriteLine("Invalid price format. Please enter a valid 
+number.");
+ break;
+ }
+ AddCoffeeDetails(new Coffee { ItemName = itemName, Price = price });
+ Console.WriteLine("Inserted successfully");
+ break;
+ case 2:
+ Console.WriteLine("Enter the item name:");
+ string itemNameToUpdate = Console.ReadLine();
+ Console.WriteLine("Enter the new price:");
+ double newPrice;
+ if (!double.TryParse(Console.ReadLine(), out newPrice))
+ {
+ Console.WriteLine("Invalid price format. Please enter a valid 
+number.");
+ break;
+ }
+ List<Coffee> updatedMenu = UpdateCoffeePrice(itemNameToUpdate, 
+newPrice);
+ if (updatedMenu.Count == 0)
+ {
+ Console.WriteLine("No item found");
+ }
+ else
+ {
+ Console.WriteLine("Price updated successfully");
+ }
+ break;
+ case 3:
+ List<Coffee> sortedMenu = SortByPrice();
+ Console.WriteLine("Coffee Menu sorted by price:");
+ foreach (var coffee in sortedMenu)
+ {
+ Console.WriteLine($"{coffee.ItemName}: ${coffee.Price}");
+ }
+ break;
+ case 4:
+ Console.WriteLine("Exiting...");
+ break;
+ default:
+ Console.WriteLine("Invalid choice. Please enter a valid option.");
+ break;
+ }
+ } while (choice != 4);
+ }
+}
+25)FAIRY TALE DRESSES
+using System;
+public class Dress
+{
+ public string Style { get; set; }
+ public string Color { get; set; }
+ public string Size { get; set; }
+ public int Quantity { get; set; }
+ public string Material { get; set; }
+ public Dress(string style, string color, string size, int quantity, string material)
+ {
+ Style = style;
+ Color = color;
+ Size = size;
+ Quantity = quantity;
+ Material = material;
+ }
+}
+public class DressUtility : Dress
+{
+ public DressUtility(string style, string color, string size, int quantity, string material) 
+: base(style, color, size, quantity, material)
+ {
+ }
+ public bool ValidateDress()
+ {
+ if (Style == "Casual" || Style == "Cocktail" || Style == "Ball Gown")
+ {
+ if ((Style == "Casual" && (Size == "S" || Size == "M" || Size == "L")) ||
+ (Style == "Cocktail" && (Size == "M" || Size == "L" || Size == "XL")) ||
+ (Style == "Ball Gown" && (Size == "M" || Size == "L" || Size == "XL")))
+ {
+ if (Color != "")
+ {
+ if (Quantity > 0)
+ {
+ if (Material == "Silk" || Material == "Cotton" || Material == "Satin" || 
+Material == "Lace")
+ {
+ return true;
+ }
+ }
+ }
+ }
+ }
+ return false;
+ }
+ public double CalculatePrice()
+ {
+ double basicPrice = 0;
+ if (Size == "S")
+ {
+ if (Style == "Casual")
+ basicPrice = 400;
+ else if (Style == "Ball Gown")
+ basicPrice = 1000;
+ }
+ else if (Size == "M")
+ {
+ if (Style == "Casual")
+ basicPrice = 200;
+ else if (Style == "Cocktail")
+ basicPrice = 300;
+ else if (Style == "Ball Gown")
+ basicPrice = 600;
+ }
+ else if (Size == "L")
+ {
+ if (Style == "Casual")
+ basicPrice = 600;
+ else if (Style == "Cocktail")
+ basicPrice = 500;
+ else if (Style == "Ball Gown")
+ basicPrice = 880;
+ }
+ else if (Size == "XL")
+ {
+ if (Style == "Cocktail")
+ basicPrice = 800;
+ else if (Style == "Ball Gown")
+ basicPrice = 999;
+ }
+ double materialPrice = 0;
+ if (Material == "Silk")
+ materialPrice = 500;
+ else if (Material == "Cotton")
+ materialPrice = 450;
+ else if (Material == "Satin")
+ materialPrice = 300;
+ else if (Material == "Lace")
+ materialPrice = 250;
+ return (basicPrice + materialPrice) * Quantity;
+ }
+}
+public class Program
+{
+ public static void Main(string[] args)
+ {
+ Console.WriteLine("Enter the Style:");
+ string style = Console.ReadLine();
+ Console.WriteLine("Enter the Color:");
+ string color = Console.ReadLine();
+ Console.WriteLine("Enter the Size:");
+ string size = Console.ReadLine();
+ Console.WriteLine("Enter the Material:");
+ string material = Console.ReadLine();
+ Console.WriteLine("Enter the Quantity:");
+ int quantity = int.Parse(Console.ReadLine());
+ DressUtility dress = new DressUtility(style, color, size, quantity, material);
+ if (dress.ValidateDress())
+ {
+ double price = dress.CalculatePrice();
+ Console.WriteLine($"Total Price: {price}");
+ }
+ else
+ {
+ Console.WriteLine("Invalid Specification");
+ }
+ }
+}
+26)Concert
+Program.cs Concert.cs ConcertDetails.cs
+using System.Threading.Tasks;
+namespace TheConcertCo //DO NOT change the namespace name 8(
+public class ConcertDetails: Concert //DO NOT change the class name
+//Implement your code here
+public bool ValidateDay(){
+if(Date.DayOfWeek.ToString() == "Saturday" || Date.DayOfWeek.ToString() == 
+"Sunday"){
+return true;
+}
+}
+return false;
+public double TicketPriceCalculation(){
+double x = 0.0;
+if(SeatingType == "First"){
+x = (double) (VisitorsCount 2000) 400;
+return x;
+} else if(SeatingType == "Second")
+X= (double) (Visitors Count 100) +188;
+return x;
+}else{
+x=(double)(VisitorsCount*500); return x;
+}
+}}
+Program.cs
+Concert cs
+ConcertDetails.cs U
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+5using System.Threading.Tasks;
+namespace TheConcert Co //DO NOT change the namespace name
+(
+public class Concert //DO NOT change the class name
+{
+public DateTime Date{get; set;}
+public string SeatingType{get; set;}
+public int VisitorsCount{get; set;}}
+27)Flying BBQ
+using System;
+public class Table
+{
+ public string CustomerName { get; set; }
+ public string DateAndTime { get; set; }
+ public int VegCount { get; set; }
+ public int NonVegCount { get; set; }
+ public string Occasion { get; set; }
+}
+public class Service : Table
+{
+ public bool ValidateOccasion()
+ {
+ return Occasion == "Birthday" || Occasion == "Anniversary" || Occasion 
+== "Office Party";
+ }
+ public double[] BookTable()
+ {
+ double priceForVeg = 800;
+ double priceForNonVeg = 1000;
+ double discountPercentage = 0;
+ switch (Occasion)
+ {
+ case "Birthday":
+ discountPercentage = 0.10;
+ break;
+ case "Anniversary":
+ discountPercentage = 0.15;
+ break;
+ case "Office Party":
+ discountPercentage = 0.25;
+ break;
+ }
+ double price = (VegCount * priceForVeg) + (NonVegCount * 
+priceForNonVeg);
+ double discount = price * discountPercentage;
+ double discountedPrice = price - discount;
+ return new double[] { price, discount, discountedPrice };
+ }
+}
+class Program
+{
+ static void Main(string[] args)
+ {
+ Service service = new Service();
+ Console.WriteLine("Enter the customer name");
+ service.CustomerName = Console.ReadLine();
+ Console.WriteLine("Enter the date and time");
+ service.DateAndTime = Console.ReadLine();
+ Console.WriteLine("Enter the veg count");
+ service.VegCount = Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("Enter the non-veg count");
+ service.NonVegCount = Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("Enter the occasion");
+ service.Occasion = Console.ReadLine();
+ if (!service.ValidateOccasion())
+ {
+ Console.WriteLine("Invalid Occasion");
+ return;
+ }
+ double[] bookingDetails = service.BookTable();
+ Console.WriteLine($"Total Price is: {bookingDetails[0]}");
+ Console.WriteLine($"Discount is: {bookingDetails[1]}");
+ Console.WriteLine($"Discounted Price is: {bookingDetails[2]}");
+ }}
+___________________________________OR_____________________________
+_______________
+using System;
+public class Table
+{
+ public string CustomerName { get; set; }
+ public string DateAndTime { get; set; }
+ public int VegCount { get; set; }
+ public int NonVegCount { get; set; }
+ public string Occasion { get; set; }
+}
+public class Service : Table
+{
+ public bool ValidateOccasion()
+ {
+ return Occasion == "Birthday" || Occasion == "Anniversary" || Occasion == 
+"Office Party";
+ }
+ public double[] BookTable()
+ {
+ double priceForVeg = 800;
+ double priceForNonVeg = 1000;
+ double Price = (VegCount * priceForVeg) + (NonVegCount * priceForNonVeg);
+ double Discount = 0;
+ switch (Occasion)
+ {
+ case "Birthday":
+ Discount = 0.10;
+ break;
+ case "Anniversary":
+ Discount = 0.15;
+ break;
+ case "Office Party":
+ Discount = 0.25;
+ break;
+ }
+ double DiscountedPrice = Price * (1 - Discount);
+ return new double[] { Price, Price * Discount, DiscountedPrice };
+ }
+}
+class Program
+{
+ static void Main(string[] args)
+ {
+ Service service = new Service();
+ Console.WriteLine("Enter the customer name");
+ service.CustomerName = Console.ReadLine();
+ Console.WriteLine("Enter the date and time");
+ service.DateAndTime = Console.ReadLine();
+ Console.WriteLine("Enter the veg count");
+ service.VegCount = int.Parse(Console.ReadLine());
+ Console.WriteLine("Enter the non-veg count");
+ service.NonVegCount = int.Parse(Console.ReadLine());
+ Console.WriteLine("Enter the occasion");
+ service.Occasion = Console.ReadLine();
+ if (!service.ValidateOccasion())
+ {
+ Console.WriteLine("Invalid Occasion");
+ return;
+ }
+ double[] result = service.BookTable();
+ Console.WriteLine($"Total Price is: {result[0]}");
+ Console.WriteLine($"Discount is: {result[1]}");
+ Console.WriteLine($"Discounted Price is: {result[2]}");
+ }}
+28)Future Wings
+using System;
+public class Student
+{
+ public string StudentName { get; set; }
+ public double Marks { get; set; }
+ public double Percentage { get; set; }
+}
+public class Service : Student
+{
+ public bool CalculatePercentage()
+ {
+ if (Marks >= 200 && Marks <= 500)
+ {
+ Percentage = (Marks / 500) * 100;
+ return true;
+ }
+ else
+ {
+ return false;
+ }
+ }
+ public string[] FindGroup()
+ {
+ if (Percentage >= 90)
+ {
+ return new string[] { "Science", "Computer Science", "Arts", "Accounts" };
+ }
+ else if (Percentage >= 80)
+ {
+ return new string[] { "Computer Science", "Arts", "Accounts" };
+ }
+ else if (Percentage >= 70)
+ {
+ return new string[] { "Arts", "Accounts" };
+ }
+ else
+ {
+ return new string[] { "Accounts" };
+ }
+ }
+}
+class Program
+{
+ static void Main(string[] args)
+ {
+ Service student = new Service();
+ Console.WriteLine("Enter the name");
+ student.StudentName = Console.ReadLine();
+ Console.WriteLine("Enter the marks");
+ student.Marks = Convert.ToDouble(Console.ReadLine());
+ if (student.CalculatePercentage())
+ {
+ Console.WriteLine($"Your percentage is {student.Percentage}");
+ Console.WriteLine("Available group:");
+ string[] groups = student.FindGroup();
+ foreach (string group in groups)
+ {
+ Console.WriteLine(group);
+ }
+ }
+ else
+ {
+ Console.WriteLine("Invalid Marks");
+ }
+ }
+}
+program.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace Future_Wings //DO NOT change the namespace name
+{
+ public class Program //DO NOT change the class name
+ {
+ public static void Main(string[] args) //DO NOT change the 'Main' method 
+signature
+ {
+ //Implement your code here
+ Console.WriteLine("Enter the name");
+ string name = Console.ReadLine();
+ 
+ Console.WriteLine("Enter the marks");
+ int marks = int.Parse(Console.ReadLine());
+ 
+ Service st = new Service();
+ st.StudentName = name;
+ st.Marks = marks;
+ 
+ var ans = st.CalculatePercentage();
+ 
+ if(ans == true)
+ {
+ string[] res = st.FindGroup();
+ Console.WriteLine($"Your percentage is {st.Percentage}");
+ Console.WriteLine("Available group:");
+ foreach(var ele in res)
+ {
+ Console.WriteLine(ele);
+ }
+ }
+ else Console.WriteLine("Invalid Marks");
+ }
+ }
+}
+service.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace Future_Wings //DO NOT change the namespace name
+{
+ public class Service : Student //DO NOT change the class name
+ {
+ //Implement your code here
+ 
+ public bool CalculatePercentage()
+ {
+ if(Marks >= 200 && Marks <= 500)
+ {
+ Percentage = (Marks/500)*100;
+ return true;
+ }
+ else return false;
+ }
+ 
+ public string[] FindGroup()
+ {
+ 
+ if(Percentage >= 90)
+ {
+ string[] grp = new string[4];
+ grp[0] = "Science";
+ grp[1] = "Computer Science";
+ grp[2] = "Arts";
+ grp[3] = "Accounts";
+ return grp;
+ }
+ else if(Percentage >= 80 && Percentage < 90)
+ {
+ string[] grp = new string[3];
+ grp[0] = "Computer Science";
+ grp[1] = "Arts";
+ grp[2] = "Accounts";
+ return grp;
+ }
+ else if(Percentage >= 70 && Percentage < 80)
+ {
+ string[] grp = new string[2];
+ grp[0] = "Arts";
+ grp[1] = "Accounts";
+ return grp;
+ }
+ else
+ {
+ string[] grp = new string[1];
+ grp[0] = "Accounts";
+ return grp;
+ }
+ }
+ }
+}
+student.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace Future_Wings //DO NOT change the namespace name
+{
+ public class Student //DO NOT change the class name
+ {
+ //Implement your code here
+ public string StudentName{get; set;}
+ public double Marks{get; set;}
+ public double Percentage{get; set;}
+ }
+}
+29)Fragrant Fantasy-0 (new)
+30)Luxe Optical
+using System;
+using System.Collections.Generic;
+using System.Linq;
+class Opticals{
+ public string FrameMaterial{get;set;}
+ public string LensCoating{get;set;}
+ public double Price{get;set;}
+}
+class Program{
+ public static SortedDictionary<int,Opticals> OpticalDetails{get;set;}=new 
+SortedDictionary<int,Opticals>();
+}
+class OpticalUtility{
+ private int k=1;
+ public void AddOpticalDetails(string frameMaterial,string lensCoating,double price){
+ 
+ Program.OpticalDetails.Add(k++,new 
+Opticals{FrameMaterial=frameMaterial,LensCoating=lensCoating,Price=price});
+ }
+ public List<Opticals> GetOpticalDetails(string frameMaterial,string lensCoating){
+ return Program.OpticalDetails.Values.Where(i=>i.FrameMaterial==frameMaterial && 
+i.LensCoating==lensCoating).ToList();
+ }
+ public List<Opticals> SortByPrice(){
+ return Program.OpticalDetails.Values.OrderByDescending(i=>i.Price).ToList();
+ }
+}
+/*using System;
+using System.Collections.Generic;
+using System.Linq;
+class Opticals{
+ public string FrameMaterial{get;set;}
+ public string LensCoating{get;set;}
+ public double Price{get;set;}
+}
+class Program{
+ public static SortedDictionary<int,Opticals> OpticalDetails{get;set;}=new 
+SortedDictionary<int,Opticals>();
+ public static void Main(){
+ OpticalUtility o=new OpticalUtility();
+ o.AddOpticalDetails("surd","teel",123.98);
+ o.AddOpticalDetails("surdty","teelty",123.976);
+ o.AddOpticalDetails("surd","teelna",123.986);
+ var l1=o.GetOpticalDetails("surdty","teeltiy");
+ if(l1.Count>0){
+ foreach(var item in l1){
+ Console.WriteLine($"{item.FrameMaterial}{item.LensCoating}{item.Price}");
+ }
+ }
+ var l2=o.SortByPrice();
+ if(l2.Count>0){
+ foreach(var item in l2){
+ Console.WriteLine($"{item.FrameMaterial}{item.LensCoating}{item.Price}");
+ }
+ }
+ 
+ 
+ }
+}
+class OpticalUtility{
+ private int k=1;
+ public void AddOpticalDetails(string frameMaterial,string lensCoating,double price){
+ 
+ Program.OpticalDetails.Add(k++,new 
+Opticals{FrameMaterial=frameMaterial,LensCoating=lensCoating,Price=price});
+ }
+ public List<Opticals> GetOpticalDetails(string frameMaterial,string lensCoating){
+ return Program.OpticalDetails.Values.Where(i=>i.FrameMaterial==frameMaterial && 
+i.LensCoating==lensCoating).ToList();
+ }
+ public List<Opticals> SortByPrice(){
+ return Program.OpticalDetails.Values.OrderByDescending(i=>i.Price).ToList();
+ }
+}
+Program.cs
+---------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace LuxeOpticals //Do not change the namespace name
+{
+ public class Program //Do not change the class name
+ {
+ //Implement the property here
+ public static SortedDictionary<int, Opticals> OpticalDetails{get;set;} = new 
+SortedDictionary<int, Opticals>();
+ 
+ public static void Main(string[] args) //Do not change the method signature
+ {
+ //Implement the code here
+ 
+ OpticalsUtility opticalsUtility = new OpticalsUtility();
+ while (true)
+ {
+ Console.WriteLine("1. Add optical details\n2. Get optical details\n3. Sort by 
+price\n4. Exit");
+ Console.WriteLine("Enter your choice");
+ int choice = Convert.ToInt32(Console.ReadLine());
+ 
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the frame material");
+ string frameMaterial = Console.ReadLine();
+ Console.WriteLine("Enter the lens coating");
+ string lensCoating = Console.ReadLine();
+ Console.WriteLine("Enter the lens price");
+ double price = Convert.ToDouble(Console.ReadLine());
+ 
+ opticalsUtility.AddOpticalDetails(frameMaterial, lensCoating, price);
+ Console.WriteLine("Added successfully");
+ break;
+ 
+ case 2:
+ Console.WriteLine("Enter the frame material");
+ frameMaterial = Console.ReadLine();
+ Console.WriteLine("Enter the lens coating");
+ lensCoating = Console.ReadLine();
+ 
+ List<Opticals> opticalDetails = 
+opticalsUtility.GetOpticalDetails(frameMaterial, lensCoating);
+ if (opticalDetails.Count == 0)
+ {
+ Console.WriteLine("Product not found");
+ }
+ else
+ {
+ Console.WriteLine("Frame Material Lens Coating Price");
+ foreach (var optical in opticalDetails)
+ {
+ Console.WriteLine($"{optical.FrameMaterial} 
+{optical.LensCoating} {optical.Price}");
+ }
+ }
+ break;
+ 
+ case 3:
+ List<Opticals> sortedOpticals = opticalsUtility.SortByPrice();
+ Console.WriteLine("Frame Material Lens Coating Price");
+ foreach (var optical in sortedOpticals)
+ {
+ Console.WriteLine($"{optical.FrameMaterial} 
+{optical.LensCoating} {optical.Price}");
+ }
+ break;
+ 
+ case 4:
+ Console.WriteLine("Thank you");
+ return;
+ }
+ }
+ }
+ 
+ 
+ }
+}
+Opticals.cs
+-----------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace LuxeOpticals //Do not change the namespace name
+{
+ public class Opticals //Do not change the class name
+ {
+ //Implement the code here
+ public string FrameMaterial{get;set;}
+ public string LensCoating{get;set;}
+ public double Price{get;set;}
+ }
+}
+OpticalsUtility
+--------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace LuxeOpticals//Do not change the namespace name
+{
+ public class OpticalsUtility //Do not change the class name
+ {
+ //Implement the code here
+ public void AddOpticalDetails(string frameMaterial,string lensCoating,double price){
+ int id = Program.OpticalDetails.Count + 1;
+ Program.OpticalDetails.Add(id, new Opticals { FrameMaterial = frameMaterial, 
+LensCoating = lensCoating, Price = price });
+ //OpticalDetails.Value.Add({FrameMaterial= frameMaterial,LensCoating = 
+lensCoating,Price = price});
+ }
+ public List<Opticals> GetOpticalDetails(string frameMaterial,string lensCoating){
+ List<Opticals> result = new List<Opticals>();
+ foreach (var optical in Program.OpticalDetails)
+ {
+ if (optical.Value.FrameMaterial == frameMaterial && optical.Value.LensCoating 
+== lensCoating)
+ {
+ result.Add(optical.Value);
+ }
+ }
+ return result;
+ }
+ public List<Opticals> SortByPrice(){
+ List<Opticals> sortedOpticals = new List<Opticals>(Program.OpticalDetails.Values);
+ sortedOpticals.Sort((x, y) => y.Price.CompareTo(x.Price));
+ return sortedOpticals;
+ }
+ }
+}
+31) Knowledge Junction
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public class Book
+{
+ public string Title { get; set; }
+ public string Author { get; set; }
+ public int ISBN { get; set; }
+ public string Genre { get; set; }
+}
+public class Program
+{
+ public static Dictionary<int, Book> Catalog{get;set;} = new Dictionary<int, Book>();
+}
+public class BookUtility
+{
+ public bool AddBookDetails(int isbn, string title, string author, string genre)
+ {
+ if (!Program.Catalog.ContainsKey(isbn))
+ {
+ Program.Catalog.Add(isbn, new Book { Title = title, Author = author, Genre = genre, 
+ISBN = isbn });
+ return true;
+ }
+ else
+ {
+ return false;
+ }
+ }
+ public List<Book> UpdateCatalog(int isbn, string author)
+ {
+ if (Program.Catalog.ContainsKey(isbn))
+ {
+ Program.Catalog[isbn].Author = author;
+ return Program.Catalog.Values.ToList();
+ }
+ else
+ {
+ return new List<Book>();
+ }
+ }
+ public List<Book> RemoveBookDetails(int isbn)
+ {
+ if (Program.Catalog.ContainsKey(isbn))
+ {
+ Program.Catalog.Remove(isbn);
+ return Program.Catalog.Values.ToList();
+ }
+ else
+ {
+ return new List<Book>();
+ }
+ }
+}
+Program.cs
+-----------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace KnowledgeJunction //Do not change the namespace name
+{
+ public class Program //Do not change the class name
+ {
+ 
+ public static Dictionary<int, Book> Catalog{get;set;}= new Dictionary<int, Book>();
+ 
+ public static void Main(string[] args) //Do not change the method signature
+ {
+ //Implement the code here
+ 
+ BookUtility bookUtility = new BookUtility();
+ int choice;
+ do
+ {
+ Console.WriteLine("1. Add book details\n2. Update catalog details\n3. Remove 
+book details\n4. Exit");
+ Console.WriteLine("Enter your choice");
+ choice = Convert.ToInt32(Console.ReadLine());
+ 
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the ISBN");
+ int isbn = Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("Enter the Title");
+ string title = Console.ReadLine();
+ Console.WriteLine("Enter the Author");
+ string author = Console.ReadLine();
+ Console.WriteLine("Enter the Genre");
+ string genre = Console.ReadLine();
+ 
+ if (bookUtility.AddBookDetails(isbn, title, author, genre))
+ Console.WriteLine("Added successfully");
+ else
+ Console.WriteLine("Not Added");
+ break;
+ 
+ case 2:
+ Console.WriteLine("Enter the ISBN");
+ int isbnToUpdate = Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("Enter the Author");
+ string updatedAuthor = Console.ReadLine();
+ List<Book> updatedCatalog = bookUtility.UpdateCatalog(isbnToUpdate, 
+updatedAuthor);
+ if(updatedCatalog.Count > 0){
+ foreach (var book in updatedCatalog)
+ {
+ Console.WriteLine($"{book.ISBN,-15}{book.Title,-30}{book.Author,-
+20}{book.Genre,-15}");
+ }
+ }
+ 
+ 
+ if (updatedCatalog.Count == 0)
+ Console.WriteLine("Not updated");
+ break;
+ 
+ case 3:
+ Console.WriteLine("Enter the ISBN");
+ int isbnToRemove = Convert.ToInt32(Console.ReadLine());
+ List<Book> remainingCatalog = 
+bookUtility.RemoveBookDetails(isbnToRemove);
+ if(remainingCatalog .Count > 0){
+ foreach (var book in remainingCatalog )
+ {
+ Console.WriteLine($"{book.ISBN,-15}{book.Title,-30}{book.Author,-
+20}{book.Genre,-15}");
+ }
+ }
+ 
+ if (remainingCatalog.Count == 0)
+ Console.WriteLine("ISBN not found");
+ break;
+ case 4:
+ Console.WriteLine("\nThank you");
+ break;
+ 
+ default:
+ Console.WriteLine("Invalid choice. Please enter a number between 1 and 4.");
+ break;
+ }
+ } while (choice != 4);
+ 
+ }
+ }
+}
+book.cs
+--------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace KnowledgeJunction //Do not change the namespace name
+{
+ public class Book //Do not change the class name
+ {
+ public string Title { get; set; }
+ public string Author { get; set; }
+ public int ISBN { get; set; }
+ public string Genre { get; set; }
+ 
+ }
+}
+BookUtility
+------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace KnowledgeJunction //Do not change the namespace name
+{
+ public class BookUtility //Do not change the class name
+ {
+ //Implement the code here
+ 
+ public bool AddBookDetails(int isbn, string title, string author, string genre)
+ {
+ if (!Program.Catalog.ContainsKey(isbn))
+ {
+ Program.Catalog.Add(isbn, new Book { ISBN = isbn, Title = title, Author = 
+author, Genre = genre });
+ return true;
+ }
+ return false;
+ }
+ 
+ public List<Book> UpdateCatalog(int isbn, string author)
+ {
+ if (Program.Catalog.ContainsKey(isbn))
+ {
+ Program.Catalog[isbn].Author = author;
+ return new List<Book>(Program.Catalog.Values);
+ }
+ return new List<Book>();
+ }
+ 
+ public List<Book> RemoveBookDetails(int isbn)
+ {
+ if (Program.Catalog.ContainsKey(isbn))
+ {
+ Program.Catalog.Remove(isbn);
+ return new List<Book>(Program.Catalog.Values);
+ }
+ return new List<Book>();
+ }
+ }
+}
+32)Acro
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace AabcoLtd //DO NOT change the namespace name
+{
+public class Program
+{
+ public static Stack<Inventory> inventoryDetails = new Stack<Inventory>();
+ public void AddInventoryDetails(int id, string type, int quantity, double cost)
+ {
+ Inventory newItem = new Inventory
+ {
+ MaterialId = id,
+ MaterialType = type,
+ Quantity = quantity,
+ Cost = cost
+ };
+ inventoryDetails.Push(newItem);
+ }
+ public Dictionary<string, int> GetHighQuantityMaterial()
+ {
+ Dictionary<string, int> highQuantityMaterial = new Dictionary<string, int>();
+ int maxQuantity = int.MinValue;
+ string maxType = "";
+ foreach (var item in inventoryDetails)
+ {
+ if (item.Quantity > maxQuantity)
+ {
+ maxQuantity = item.Quantity;
+ maxType = item.MaterialType;
+ }
+ }
+ if (!string.IsNullOrEmpty(maxType))
+ {
+ highQuantityMaterial.Add(maxType, maxQuantity);
+ }
+ return highQuantityMaterial;
+ }
+ public Stack<Inventory> GetInventoryDetails(int id)
+ {
+ Stack<Inventory> result = new Stack<Inventory>();
+ foreach (var item in inventoryDetails)
+ {
+ if (item.MaterialId == id)
+ {
+ result.Push(item);
+ }
+ }
+ return result;
+ }
+ static void Main(string[] args)
+ {
+ Program program = new Program();
+ int choice;
+ do
+ {
+ Console.WriteLine("\n1. Add the inventory details");
+ Console.WriteLine("2. Get high quantity material");
+ Console.WriteLine("3. Get inventory details");
+ Console.WriteLine("4. Exit");
+ Console.WriteLine("Enter your choice");
+ choice = Convert.ToInt32(Console.ReadLine());
+ switch (choice)
+ {
+ case 1:
+ Console.WriteLine("Enter the material id");
+ int id = Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("Enter the type");
+ string type = Console.ReadLine();
+ Console.WriteLine("Enter the quantity");
+ int quantity = Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("Enter the cost");
+ double cost = Convert.ToDouble(Console.ReadLine());
+ program.AddInventoryDetails(id, type, quantity, cost);
+ break;
+ case 2:
+ var highQuantityMaterial = program.GetHighQuantityMaterial();
+ foreach (var item in highQuantityMaterial)
+ {
+ Console.WriteLine($"{item.Key} {item.Value}");
+ }
+ break;
+ case 3:
+ Console.WriteLine("Enter the id");
+ int searchId = Convert.ToInt32(Console.ReadLine());
+ var inventoryDetails = program.GetInventoryDetails(searchId);
+ foreach (var item in inventoryDetails)
+ {
+ Console.WriteLine($"\nId : {item.MaterialId}\nType : 
+{item.MaterialType}\nQuantity : {item.Quantity}\nCost : {item.Cost}");
+ }
+ break;
+ case 4:
+ Console.WriteLine("Exiting program...");
+ break;
+ default:
+ Console.WriteLine("Invalid choice. Please try again.");
+ break;
+ }
+ } while (choice != 4);
+ }
+}
+}
+33)Coffee Cottage
+Coffee
+using System;
+// Class to represent a coffee order
+public class Coffee
+{
+ // Properties
+ public string TypeOfCoffee { get; set; }
+ public int NoOfCups { get; set; }
+ public double PricePerCup { get; set; }
+ public double TotalPrice { get; set; }
+}
+// Class to provide coffee services
+public class CoffeeService : Coffee
+{
+ // Method to validate the coffee type
+ public bool ValidateTheCoffeeType()
+ {
+ // Check if the coffee type is Espresso, Latte or Cappuccino
+ if (TypeOfCoffee == "Espresso" || TypeOfCoffee == "Latte" || TypeOfCoffee == "Cappuccino")
+ {
+ return true; // Valid coffee type
+ }
+ else
+ {
+ return false; // Invalid coffee type
+ }
+ }
+ // Method to calculate the coffee price after the discount amount
+ public Coffee PriceCalculation()
+ {
+ // Calculate the total price before discount
+ TotalPrice = PricePerCup * NoOfCups;
+ // Declare a variable to store the discount percentage
+ double discountPercentage = 0;
+ // Determine the discount percentage based on the total price
+ if (TotalPrice >= 100 && TotalPrice <= 500)
+ {
+ discountPercentage = 0.15; // 15% of the total price
+ }
+ else if (TotalPrice > 500 && TotalPrice <= 1000)
+ {
+ discountPercentage = 0.25; // 25% of the total price
+ }
+ else if (TotalPrice > 1000)
+ {
+ discountPercentage = 0.35; // 35% of the total price
+ }
+ else
+ {
+ discountPercentage = 0; // No discount
+ }
+ // Calculate the price after discount
+ TotalPrice = TotalPrice - (TotalPrice * discountPercentage);
+ // Return the coffee object with the updated price
+ return this;
+ }
+}
+// Class to test the program
+public class Program
+{
+ // Main method
+ public static void Main(string[] args)
+ {
+ // Create a new coffee service object
+ CoffeeService coffeeService = new CoffeeService();
+ // Get the coffee type from the user
+ Console.WriteLine("Enter the coffee type");
+ coffeeService.TypeOfCoffee = Console.ReadLine();
+ // Call the ValidateTheCoffeeType method
+ bool isValid = coffeeService.ValidateTheCoffeeType();
+ // Check if the coffee type is valid
+ if (isValid)
+ {
+ // Get the number of cups from the user
+ Console.WriteLine("Enter number of cups");
+ coffeeService.NoOfCups = int.Parse(Console.ReadLine());
+ // Get the price per cup from the user
+ Console.WriteLine("Enter price per cup");
+ coffeeService.PricePerCup = double.Parse(Console.ReadLine());
+ // Call the PriceCalculation method
+ coffeeService = (CoffeeService)coffeeService.PriceCalculation();
+ // Display the result
+ Console.WriteLine("Type Of Coffee : {0}", coffeeService.TypeOfCoffee);
+ Console.WriteLine("No Of Cups : {0}", coffeeService.NoOfCups);
+ Console.WriteLine("Price Per Cup : {0}", coffeeService.PricePerCup);
+ Console.WriteLine("Total Price : {0}", coffeeService.TotalPrice);
+ }
+ else
+ {
+ // Display an error message
+ Console.WriteLine("Invalid coffee type");
+ }
+ }
+}
+34)Vegetable
+vegetable new code
+using System;
+public class Vegetable
+{
+public string BillId { get; set; }
+public string Name { get; set; }
+public int GramsInPack { get; set; }
+public double CostPerPack { get; set; }
+}
+public class Service : Vegetable
+{
+public bool ValidateBillId()
+{
+if (BillId.Length == 7 && Char.IsDigit(BillId[0]) && Char.IsDigit(BillId[1]) && Char.IsDigit(BillId[2]) && 
+BillId[3] == '-' && Char.IsUpper(BillId[4]) && Char.IsUpper(BillId[5]) && Char.IsUpper(BillId[6]))
+{
+return true;
+}
+else
+{
+return false;
+}
+}
+public double CalculateTotalCost(float quantity)
+{
+return (CostPerPack * (quantity * 1000) / GramsInPack);
+}
+}
+class Program
+{
+static void Main(string[] args)
+{
+Service service = new Service();
+Console.Write("Enter BillId: ");
+service.BillId = Console.ReadLine();
+if (service.ValidateBillId())
+{
+Console.Write("Enter Name: ");
+service.Name = Console.ReadLine();
+Console.Write("Enter GramsInPack: ");
+service.GramsInPack = Convert.ToInt32(Console.ReadLine());
+Console.Write("Enter CostPerPack: ");
+service.CostPerPack = Convert.ToDouble(Console.ReadLine());
+Console.Write("Enter Quantity: ");
+float quantity = Convert.ToSingle(Console.ReadLine());
+double totalCost = service.CalculateTotalCost(quantity);
+Console.WriteLine("Total Cost: " + totalCost);
+}
+else
+{
+Console.WriteLine("Invalid bill id.");
+}
+}
+}
